@@ -116,7 +116,7 @@ Subito dopo l’avvio dell’esecuzione, il programma è vincolato ad entrare ne
 
 Entrato nel thread **Tr** il processo richiama la funzione dataora passando come parametro il numero del suo thread, ovvero l’1, questo fa si che venga creato il file di log Tr.log e ci venga scritto la data e l’ora relativa al momento dell’esecuzione del thread.
 
-A questo punto si attende che l’utente inserisca una stringa seguita poi dal carattere <CR> (ENTER), al quale il nostro programma aggiunge ‘/0’ come carattere successivo all’ultimo inserito, successivamente viene richiamata la funzione inserisci per aggiungere alla coda la stringa appena letta.
+A questo punto si attende che l’utente inserisca una stringa seguita poi dal carattere \<CR> (ENTER), al quale il nostro programma aggiunge '/0' come carattere successivo all’ultimo inserito, successivamente viene richiamata la funzione inserisci per aggiungere alla coda la stringa appena letta.
 
 Finita quest’operazione viene richiamata la funzione ctrlS sulla stringa inserita dall’utente e il valore di ritorno viene salvato nella variabile globale ‘controllo’.
 
@@ -139,7 +139,7 @@ Prima della fine vengono stampate a video prima la variabile R e poi la variabil
 Tutto  questo thread è contenuto all’interno di un ciclo che esce solamente quando la lista degli elementi del buffer è vuota.
 Solamente dopo la conclusione del thread Te, viene attivato il semaforo ed è possibile quindi l’avvio del terzo thread. 
 
-Il thread Td, come i due precendenti thread, richiama la funzione dataora che scrive nel file di log Te.log la data e l’ora attuali.
+Il thread **Td**, come i due precendenti thread, richiama la funzione dataora che scrive nel file di log Te.log la data e l’ora attuali.
 Dopo di questo il processo alloca dinamicamente un’altra variabile, Sd, dove sarà contenuto il risultato dello XOR byte-per-byte tra R e Se.
 
 Dopo questa operazione viene attivato il semaforo che manda il programma all’interno del quarto thread.
