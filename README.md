@@ -1,4 +1,4 @@
-# sistemioperativi-2013-project
+# Sistemi Operativi 1
 
 ## Introduzione sull’ambiente di sviluppo e linguaggio di programmazione
 
@@ -77,33 +77,34 @@ In aggiunta alle variabili globali abbiamo aggiunto anche dei semafori globali c
 ## Spiegazione funzionamento funzioni ausiliarie
 
 All’interno del file ‘Threads.c’ sono implementate alcune funzioni necessarie allo svolgimento del problema.
-La prima funzione richiamata dal programma è la funzione init(prodcons *b, int opzione), dove passo come parametri la coda creata per contenere gli input e ‘opzione’, ovvero l’intero che l’utente deve inserire nell’opzione –q, questa variabile darà la grandezza massima della coda.
+
+La prima funzione richiamata dal programma è la funzione **init**(prodcons *b, int opzione), dove passo come parametri la coda creata per contenere gli input e ‘opzione’, ovvero l’intero che l’utente deve inserire nell’opzione –q, questa variabile darà la grandezza massima della coda.
 
 All’interno di questa funzione vengono inizializzati la coda ed i semafori necessari all’esecuzione, con la gestione degli eventuali errori.
 
-La funzione dataora(int nthread), dove nthread è la variabile che contiene il numero del thread che richiama questa funzione, crea inizialmente, se non è già presente, la cartella nella directory ‘/var/log/Threads/’; nella gestione dell’errore della mkdir il programma darà sempre un errore dicendo che la cartella è già stata creata, nonostante questo il processo continua normalmente con la sua esecuzione.
+La funzione **dataora**(int nthread), dove nthread è la variabile che contiene il numero del thread che richiama questa funzione, crea inizialmente, se non è già presente, la cartella nella directory ‘/var/log/Threads/’; nella gestione dell’errore della mkdir il programma darà sempre un errore dicendo che la cartella è già stata creata, nonostante questo il processo continua normalmente con la sua esecuzione.
 
 Creata la cartella il programma va ad interagire con la libreria ‘time.h’ salvando nella variabile char[30] orario la data e l’ora attuali del sistema.
 
 La successiva switch è basata sulla variabile passata come parametro, infatti in base a quale thread ha richiamato la funzione, la switch farà aprire in append il file di log relativo su cui verrà scritto il valore della variabile orario e successivamente verrà chiuso il file, anche in questo caso vengono gestiti eventuali errori di apertura o chiusura.
 
-La funzione top(prodcons *b) ritorna l’elemento in testa alla coda, senza toglierlo dalla stessa, ovviamente se la coda dovesse essere vuota questa funzione non ritorna nulla, il parametro passato è il nostro buffer di elementi.
+La funzione **top**(prodcons *b) ritorna l’elemento in testa alla coda, senza toglierlo dalla stessa, ovviamente se la coda dovesse essere vuota questa funzione non ritorna nulla, il parametro passato è il nostro buffer di elementi.
 
-La funzione dequeue(prodcons *b) toglie l’elemento in testa alla coda, qualora la coda fosse vuota non elimina nulla, anche qui, come per la top, il parametro è lo stesso.
+La funzione **dequeue**(prodcons *b) toglie l’elemento in testa alla coda, qualora la coda fosse vuota non elimina nulla, anche qui, come per la top, il parametro è lo stesso.
 
-La funzione enqueue(char *S, prodcons *b) aggiunge la stringa S, quella presa in input, in coda.
+La funzione **enqueue**(char *S, prodcons *b) aggiunge la stringa S, quella presa in input, in coda.
 
-La funzione ctrlS(char *d) è una funzione di controllo sulla stringa d, infatti, nel caso in cui la stringa passata come parametro dovesse risultare uguale alla parola di escape ‘quit’ il programma restituisce 1, in caso contrario restituisce 2.
+La funzione **ctrlS**(char *d) è una funzione di controllo sulla stringa d, infatti, nel caso in cui la stringa passata come parametro dovesse risultare uguale alla parola di escape ‘quit’ il programma restituisce 1, in caso contrario restituisce 2.
 
 Abbiamo scelto di adottare questo tipo di controllo al posto dello string compare in quanto utilizzando questa funzione ritornava valori diversi per ogni dispositivo su cui facevamo girare il nostro programma.
 
-La funzione inserisci(prodcons *b) come prima cosa controlla se l’array del buffer è pieno, in tal caso richiama il secondo thread fino a che il buffer non è vuoto e poi riparte, nel caso che il buffer non sia pieno allora aggiunge la stringa S in coda.
+La funzione **inserisci**(prodcons *b) come prima cosa controlla se l’array del buffer è pieno, in tal caso richiama il secondo thread fino a che il buffer non è vuoto e poi riparte, nel caso che il buffer non sia pieno allora aggiunge la stringa S in coda.
 
-La funzione estrai(prodcons *b) è una funzione analoga alla funzione ‘inserisci’, in quanto anche qui prima di tutto viene effettuato un controllo sullo stato della coda, qualora il buffer risulti vuoto, la funzione richiama il thread produttore fino a che la coda non è in parte piena, solo dopo questo la funzione riprende la sua esecuzione.
+La funzione **estrai**(prodcons *b) è una funzione analoga alla funzione ‘inserisci’, in quanto anche qui prima di tutto viene effettuato un controllo sullo stato della coda, qualora il buffer risulti vuoto, la funzione richiama il thread produttore fino a che la coda non è in parte piena, solo dopo questo la funzione riprende la sua esecuzione.
 
 Infatti dopo aver salvato in una variabile locale, chiamata ‘stringa’ il contenuto del primo elemento dell’array che contiene tutte le stringhe inserite dall’utente lo elimino dalla coda e ritorno il valore di ‘stringa’.
 
-L’ultima funzione richiamata è la deinit(), questa funzione libera i blocchi di memoria allocati dinamicamente e azzera la variabile della lunghezza delle stringhe.
+L’ultima funzione richiamata è la **deinit**(), questa funzione libera i blocchi di memoria allocati dinamicamente e azzera la variabile della lunghezza delle stringhe.
 
 ## Spiegazione funzionamento thread
 
@@ -113,15 +114,17 @@ Con la creazione di questi thread si è posto un problema di sincronizzazione ch
 
 Subito dopo l’avvio dell’esecuzione, il programma è vincolato ad entrare nel thread Tr, in realtà potrebbe entrare anche nel thread Te, ma nella sua esecuzione sarebbe costretto a ritornare nel thread Tr in quanto la coda degli elementi sarebbe vuota.
 
-Entrato nel thread Tr il processo richiama la funzione dataora passando come parametro il numero del suo thread, ovvero l’1, questo fa si che venga creato il file di log Tr.log e ci venga scritto la data e l’ora relativa al momento dell’esecuzione del thread.
+Entrato nel thread **Tr** il processo richiama la funzione dataora passando come parametro il numero del suo thread, ovvero l’1, questo fa si che venga creato il file di log Tr.log e ci venga scritto la data e l’ora relativa al momento dell’esecuzione del thread.
 
 A questo punto si attende che l’utente inserisca una stringa seguita poi dal carattere <CR> (ENTER), al quale il nostro programma aggiunge ‘/0’ come carattere successivo all’ultimo inserito, successivamente viene richiamata la funzione inserisci per aggiungere alla coda la stringa appena letta.
 
 Finita quest’operazione viene richiamata la funzione ctrlS sulla stringa inserita dall’utente e il valore di ritorno viene salvato nella variabile globale ‘controllo’.
 
 Tutto questo thread è contenuto in un ciclo che termina solo quando la parola inserita dall’utente sarà uguale alla parola di escape.
+
 Conclusa l’esecuzione del thread Tr, il secondo thread continua la sua esecuzione fino a quando la coda non è vuota.
-Il secondo thread, Te, può quindi avviare la sua esecuzione creando un file di log, Te.log,  analogo a quello creato per il primo thread.
+
+Il secondo thread, **Te**, può quindi avviare la sua esecuzione creando un file di log, Te.log,  analogo a quello creato per il primo thread.
 
 Già detto del suo primo controllo sul contenuto dell’array ‘elem’ contenuto nella coda, estrae il primo elemento della coda e lo copia in una variabile locale, ‘d’, questa stringa viene comparata con la stringa di escape tramite la funzione ctrlS, nel caso dovesse risultare proprio la parola ‘quit’, il programma termina.
 
@@ -135,13 +138,16 @@ Prima della fine vengono stampate a video prima la variabile R e poi la variabil
 
 Tutto  questo thread è contenuto all’interno di un ciclo che esce solamente quando la lista degli elementi del buffer è vuota.
 Solamente dopo la conclusione del thread Te, viene attivato il semaforo ed è possibile quindi l’avvio del terzo thread. 
+
 Il thread Td, come i due precendenti thread, richiama la funzione dataora che scrive nel file di log Te.log la data e l’ora attuali.
 Dopo di questo il processo alloca dinamicamente un’altra variabile, Sd, dove sarà contenuto il risultato dello XOR byte-per-byte tra R e Se.
 
 Dopo questa operazione viene attivato il semaforo che manda il programma all’interno del quarto thread.
-Il thread Tw, crea e modifica il suo file di log, Tw.log, contenuto nella cartella dove sono contenuti tutti i file di questo tipo del nostro programma, ovvero ‘/var/log/Threads/’, dopo di che stampa a video la stringa Sd e richiama la funzione deinit() che libera tutte le variabili allocate dinamicamente e riporta  a 0 lungS.
+
+Il thread **Tw**, crea e modifica il suo file di log, Tw.log, contenuto nella cartella dove sono contenuti tutti i file di questo tipo del nostro programma, ovvero ‘/var/log/Threads/’, dopo di che stampa a video la stringa Sd e richiama la funzione deinit() che libera tutte le variabili allocate dinamicamente e riporta  a 0 lungS.
 
 Ovviamente qualora l’utente inserisse la stringa di escape, che causerebbe la terminazione del thread Tr, gli altri thread continuano normalmente la loro esecuzione fino a che dalla coda degli elementi verrà estratta la parola ‘quit', a quel punto il processo terminerà.
+
 Un altro punto in comune tra tutti quattro i thread è la presenza in ogni system call di un controllo che gestisce eventuali errori e ne restituisce una stringa di informazione nel momento in cui si verifichino.
 
 ## Considerazioni sulla sincronizzazione
